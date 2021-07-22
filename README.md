@@ -2,6 +2,8 @@
 
 ## Criando uma APP de cadastro em memória
 
+Modificado para salvar os cadastros em um EXCEL
+
 [Slides](dio-dotnet-poo-lab-2.pdf)
 
 ## Contato
