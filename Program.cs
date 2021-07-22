@@ -5,6 +5,7 @@ using ClosedXML.Excel;
 using System.IO;
 using System.Data;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 namespace DIO.Series 
@@ -128,24 +129,21 @@ namespace DIO.Series
 
 			repositorio.Atualiza(indiceSerie, atualizaSerie);
 		}
-			private static void ListarSeries()
+       private static void ListarSeries()
 		{
+			Diretorio(out string file, out string path);
 			Console.WriteLine("Listar séries");
+			//Criado processo para abrir o arquivo excel com as series
+			Process process = new Process();
+			
+			process.StartInfo.FileName = path;
+			process.StartInfo.Arguments = "-n";
+			process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+			process.Start();
+			Console.WriteLine("Fechar arquivo para voltar a tela de opções");
+			process.WaitForExit();
 
-			var lista = repositorio.Lista();
-
-			if (lista.Count == 0)
-			{
-				Console.WriteLine("Nenhuma série cadastrada.");
-				return;
-			}
-
-			foreach (var serie in lista)
-			{
-                var excluido = serie.retornaExcluido();
-                
-				Console.WriteLine("#ID {0}: - Nome da série: {1} - Descrição: {2} {3}", serie.retornaId(), serie.retornaTitulo(), serie.retornaDescricao(),(excluido ? "*Excluído*" : ""));
-			}
+			
 		}
 
         private static void InserirSerie()
